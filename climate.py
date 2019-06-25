@@ -1,3 +1,4 @@
+#import dependencies
 import numpy as np
 
 import sqlalchemy
@@ -8,14 +9,18 @@ from sqlalchemy import create_engine, func, inspect
 from flask import Flask, jsonify
 import datetime as dt
 
-
+#create engine
 engine = create_engine("sqlite:///Resources/hawaii.sqlite",
                        connect_args={'check_same_thread': False}, echo=True)
-Base = automap_base()
-Base.prepare(engine, reflect=True)
 
+#reflect existitng database into a new model
+Base = automap_base()
+#reflect tables
+Base.prepare(engine, reflect=True)
+#save references to each table
 Measurement = Base.classes.measurement
 Station = Base.classes.station
+#create session link from python to the DB
 session = Session(engine)
 
 
